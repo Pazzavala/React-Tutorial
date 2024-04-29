@@ -2,9 +2,9 @@ import React, { Component } from "react";
 
 class Counter extends Component {
     state = {
-        count: 0,
+        value: this.props.value,
         // imageUrl: "https://picsum.photos/200",
-        tags: ["tag1", "tag2", "tag3"],
+        // tags: ["tag1", "tag2", "tag3"],
     };
 
     style = {
@@ -17,54 +17,58 @@ class Counter extends Component {
     //     this.handleIncrement = this.handleIncrement.bind(this);
     // }
 
-    handleIncrement = () => {
-        this.setState({ count: this.state.count + 1 });
+    handleIncrement = (product) => {
+        console.log(product);
+        this.setState({ value: this.state.value + 1 });
     };
 
     render() {
+        console.log("props", this.props);
         return (
-            <React.Fragment>
+            <div>
                 {/* <img src={this.state.imageUrl} alt=""/> */}
                 <span
-                    style={this.style}
+                    // style={this.style}
                     className={this.getBadgeClasses()}
                 >
                     {this.formatCount()}
                 </span>
                 <button
-                    onClick={this.handleIncrement}
+                    onClick={() => {
+                        this.handleIncrement({ id: 1 });
+                    }}
                     className="btn btn-secondary btn-sm"
                 >
                     Increment
                 </button>
-                {this.renderTags()}
-                {this.state.tags.length === 0 && "Please add Tags!"}
-            </React.Fragment>
+                {/* {this.renderTags()} */}
+                {/* {this.state.tags.length === 0 && "Please add Tags!"} */}
+            </div>
         );
     }
 
-    renderTags() {
-        if (this.state.tags.length === 0) return <p>There are no tags!</p>;
+    // renderTags() {
+    //     if (this.state.tags.length === 0) return <p>There are no tags!</p>;
 
-        return (
-            <ul>
-                {this.state.tags.map((tag) => (
-                    <li key={tag}>{tag}</li>
-                ))}
-            </ul>
-        );
-    }
+    //     return (
+    //         <ul>
+    //             {this.state.tags.map((tag) => (
+    //                 <li key={tag}>{tag}</li>
+    //             ))}
+    //         </ul>
+    //     );
+    // }
 
     getBadgeClasses() {
         let classes = "badge m-2 text-bg-";
-        classes += this.state.count === 0 ? "warning" : "primary";
+        classes += this.state.value === 0 ? "warning" : "primary";
         return classes;
     }
 
     formatCount() {
-        const { count } = this.state;
+        const { value } = this.state;
 
-        return count === 0 ? "Zero" : count;
+        return value === 0 ? "Zero" : value;
     }
 }
 
